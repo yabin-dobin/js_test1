@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>サンプル</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+	#container {
+		border: 1px #000 solid;
+		width: 320px;
+	}
+	/*
+	*/
+</style>
+</head>
+
+<body>
+
+<div id = "container" >
+	<canvas id = "canvas"></canvas>
+	<!-- ボタンを追加 -->
+	<button id = "up">UP</button>
+	<button id = "down">DOWN</button>
+	<button id = "left">LEFT</button>
+	<button id = "right">RIGHT</button>
+</div>
+
+<script>
+	const charSize = 32;
+	const width = 320;
+	const height = 480;
+
+	let canvas = document.getElementById('canvas');
+	canvas.width = width;
+	canvas.height = height;
+
+	let ctx = canvas.getContext('2d');
+	let initX = (canvas.width - charSize) / 2;
+	let initY = (canvas.height - charSize) / 2;
+	let x = initX;
+	let y = initY;
+
+	let up = false;
+	let down = false;
+	let left = false;
+	let right = false;
+
+	setInterval(()=>{
+		if(up)
+			y--;
+		if(down)
+			y++;
+		if(left)
+			x--;
+		if(right)
+			x++;
+
+		ctx.fillStyle = '#000';
+		ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+		ctx.fillStyle = '#f00';
+		ctx.fillRect(x, y, charSize, charSize);
+	}, 33);
+</script>
+
+<script>
+	document.onkeydown = (e) => {
+		if(e.key == 'ArrowUp')
+			up = true;
+		if(e.key == 'ArrowDown')
+			down = true;
+		if(e.key == 'ArrowLeft')
+			left = true;
+		if(e.key == 'ArrowRight')
+			right = true;
+	}
+
+	document.onkeyup = (e) => {
+		if(e.key == 'ArrowUp')
+			up = false;
+		if(e.key == 'ArrowDown')
+			down = false;
+		if(e.key == 'ArrowLeft')
+			left = false;
+		if(e.key == 'ArrowRight')
+			right = false;
+	}
+</script>
+
+<script>
+let $up = document.getElementById('up');
+let $down = document.getElementById('down');
+let $left = document.getElementById('left');
+let $right = document.getElementById('right');
+
+// タップしやすいようにボタンを大きくする（地味に重要）
+let arr = [$up, $down, $left, $right];
+for(let i=0; i<4; i++){
+	arr[i].style.width = '75px';
+	arr[i].style.height = '70px';
+}
+
+$up.addEventListener('mousedown', (e) => {
+	up = true;
+});
+$down.addEventListener('mousedown', (e) => {
+	down = true;
+});
+$left.addEventListener('mousedown', (e) => {
+	left = true;
+});
+$right.addEventListener('mousedown', (e) => {
+	right = true;
+});
+
+$up.addEventListener('mouseup', (e) => {
+	up = false;
+});
+$down.addEventListener('mouseup', (e) => {
+	down = false;
+});
+$left.addEventListener('mouseup', (e) => {
+	left = false;
+});
+$right.addEventListener('mouseup', (e) => {
+	right = false;
+});
+
+document.addEventListener('mouseup', (e) => {
+	up = false;
+	down = false;
+	left = false;
+	right = false;
+});
+
+// document.addEventListener('touchstart', (e) => {
+// 	e.preventDefault();
+// }, {passive: false});
+
+$up.addEventListener('touchstart', (e) => {
+	e.preventDefault();
+	up = true;
+});
+$down.addEventListener('touchstart', (e) => {
+	e.preventDefault();
+	down = true;
+});
+$left.addEventListener('touchstart', (e) => {
+	e.preventDefault();
+	left = true;
+});
+$right.addEventListener('touchstart', (e) => {
+	e.preventDefault();
+	right = true;
+});
+
+$up.addEventListener('touchend', (e) => {
+	e.preventDefault();
+	up = false;
+});
+
+$down.addEventListener('touchend', (e) => {
+	down = false;
+});
+
+$left.addEventListener('touchend', (e) => {
+	left = false;
+});
+
+$right.addEventListener('touchend', (e) => {
+	right = false;
+});
+
+document.oncontextmenu = () => {
+	return false;
+};
+
+// document.addEventListener('touchend', (e) => {
+// 	up = false;
+// 	down = false;
+// 	left = false;
+// 	right = false;
+// });
+
+</script>
+
+</body>
+</html>
